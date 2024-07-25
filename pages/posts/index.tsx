@@ -13,15 +13,15 @@ export default function NotePage({
         allPosts.map((post) => (
           <article key={post.slug} className="mb-10">
             <Link
-              as={`/posts/${post.slug}`}
-              href="/posts/[slug]"
+              as={`/posts/${post.id}`}
+              href="/posts/[id]"
               className="text-lg leading-6 font-bold"
             >
               {post.title}
             </Link>
-            <p>{post.excerpt}</p>
+            <p>{post.description}</p>
             <div className="text-gray-400">
-              <time>{distanceToNow(new Date(post.date))}</time>
+              <time>{distanceToNow(new Date())}</time>
             </div>
           </article>
         ))
@@ -33,7 +33,7 @@ export default function NotePage({
 }
 
 export async function getStaticProps() {
-  const allPosts = getAllPosts(["slug", "title", "excerpt", "date"]);
+  const allPosts = await getAllPosts();
 
   return {
     props: { allPosts },
