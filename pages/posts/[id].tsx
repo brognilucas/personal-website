@@ -18,7 +18,7 @@ export default function PostPage({
   return (
     <Container>
       <Head>
-        <title>{post.title} | My awesome blog</title>
+        <title>{post.title} | Lucas Brogni</title>
       </Head>
 
       {router.isFallback ? (

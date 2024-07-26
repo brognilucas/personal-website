@@ -4,7 +4,7 @@ import Container from "../../components/container";
 import distanceToNow from "../../lib/dateRelative";
 import { getAllPosts } from "../../lib/getPost";
 
-export default function NotePage({
+export default function AllPostsBlog({
   allPosts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
@@ -21,7 +21,7 @@ export default function NotePage({
             </Link>
             <p>{post.description}</p>
             <div className="text-gray-400">
-              <time>{distanceToNow(new Date())}</time>
+              <time>{distanceToNow(new Date(post.created_at))}</time>
             </div>
           </article>
         ))
@@ -32,6 +32,8 @@ export default function NotePage({
   );
 }
 
+
+AllPostsBlog.displayName = 'Blog'
 export async function getStaticProps() {
   const allPosts = await getAllPosts();
 
