@@ -1,5 +1,5 @@
 
-interface DevToArticle {
+export interface DevToArticle {
   type_of: string;
   id: number;
   title: string;

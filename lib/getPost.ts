@@ -1,3 +1,5 @@
+import { DevToArticle } from "../interfaces";
+
 export async function getAllPosts() {
   const devToUsername = 'lucasbrogni1'; 
   const posts = await fetch(`https://dev.to/api/articles?username=${devToUsername}`).then((res) => res.json());
