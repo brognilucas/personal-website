@@ -46,13 +46,11 @@ export default function PostPage({
 
 type Params = {
   params: {
-    slug?: string;
     id: number;
   };
 };
 
 export async function getStaticProps({ params }: Params) {
-  console.log({ params });
   const post = await getPostById(params.id);
   const content = post.body_html;
 

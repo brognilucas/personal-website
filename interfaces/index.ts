@@ -1,24 +1,38 @@
-export type User = {
-  name: string;
-  picture: string;
-  sub: string;
-  email?: string;
-};
 
-export type Comment = {
-  id: string;
-  created_at: number;
+interface DevToArticle {
+  type_of: string;
+  id: number;
+  title: string;
+  description: string;
+  readable_publish_date: string;
+  slug: string;
+  path: string;
   url: string;
-  text: string;
-  user: User;
-};
-
-export type Post = {
-  slug?: string;
-  title?: string;
-  author?: string;
-  date?: Date;
-  content?: string;
-  excerpt?: string;
-  [key: string]: any;
-};
+  comments_count: number;
+  public_reactions_count: number;
+  collection_id: number | null;
+  published_timestamp: string;
+  positive_reactions_count: number;
+  cover_image: string | null;
+  social_image: string;
+  canonical_url: string;
+  created_at: string;
+  edited_at: string | null;
+  crossposted_at: string | null;
+  published_at: string;
+  last_comment_at: string;
+  reading_time_minutes: number;
+  tag_list: string;
+  tags: string[];
+  body_html: string;
+  user: {
+      name: string;
+      username: string;
+      twitter_username: string | null;
+      github_username: string;
+      user_id: number;
+      website_url: string | null;
+      profile_image: string;
+      profile_image_90: string;
+  };
+}
