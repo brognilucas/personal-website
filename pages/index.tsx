@@ -9,18 +9,14 @@ function Resume() {
         <p className="text-xl text-gray-600">Software Engineer</p>
         <p className="text-gray-600">lucasbrogni16@gmail.com</p>
 
-      <div className="mt-4 flex justify-center space-x-6">
-        <a href="https://github.com/brognilucas" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800">
-          <FaGithub size={30} />
-        </a>
-        <a href="https://linkedin.com/in/lucas-brogni" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800">
-          <FaLinkedin size={30} />
-        </a>
-        <a href="https://twitter.com/lucasbrogni1" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800">
-          <FaTwitter size={30} />
-        </a>
-      </div>
-
+        <div className="mt-4 flex justify-center space-x-6">
+          <a href="https://github.com/brognilucas" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800">
+            <FaGithub size={30} />
+          </a>
+          <a href="https://linkedin.com/in/lucas-brogni" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800">
+            <FaLinkedin size={30} />
+          </a>
+        </div>
       </header>
 
 
