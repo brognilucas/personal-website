@@ -34,11 +34,12 @@ function Resume() {
           <p className="text-gray-600">Taxdoo | Mar 2023 - Present</p>
           <ul className="list-disc list-inside text-gray-700 mt-2">
             <li>Developed new features, collaborating in the entire Software Development lifecycle</li>
-            <li>Led the rewriting of sessions from a legacy monolith written in PHP, decoupling frontend and backend using NodeJS and React</li>
+            <li>Management of infrastructure using IaC with AWS CDK</li>
             <li>Drove technical initiatives from system design to implementation</li>
             <li>Designed the team's testing strategy</li>
-            <li>Participated in the hiring process by conducting cultural and technical interviews</li>
-            <li>During 10 months worked as the Engineering Manager of the team replacing the EM who was on maternity leave during this time was responsible for the team members' personal development by conducting 1:1s and guiding them according to Taxdoo's career framework, making performance assessments, and managed the team's roadmap</li>
+            <li>Mentored engineers through Taxdoo's mentorship program</li>
+            <li>Worked across multiple projects such as defining a new testing strategy for the team and decoupling login from the legacy app migrating to AWS Cognito</li>
+            <li>For 10 months, worked as the team's temporary Engineering Manager</li>
           </ul>
           <p className="text-gray-600 mt-2"><strong>Technologies:</strong> NodeJS, TypeScript, React, Cypress, Jest, MySQL, AWS, AWS CDK, DynamoDB, and AWS Lambda</p>
         </div>
@@ -48,7 +49,8 @@ function Resume() {
           <ul className="list-disc list-inside text-gray-700 mt-2">
             <li>Development of new features extending the existing product collaborating in the entire Software Development lifecycle</li>
             <li>Collaboration on pair programming sessions and code reviews of team members</li>
-            <li>Mentorship of engineers providing technical guidance, offering support in problem-solving, and promoting best practices</li>
+            <li>Management of infrastructure using IaC with Terraform</li>
+            <li>Worked on multiple projects including enablement of multi-entities and transaction reviews for multi-entities teams</li>
           </ul>
           <p className="text-gray-600 mt-2"><strong>Technologies:</strong> NodeJS, Typescript, Kotlin, JUnit, Jest, Postgres, Kubernetes, Docker, AWS, and Terraform</p>
         </div>
@@ -56,16 +58,24 @@ function Resume() {
           <h3 className="text-xl font-semibold text-gray-800">Senior Backend Software Engineer</h3>
           <p className="text-gray-600">Learningbank | Aug 2021 - Feb 2022</p>
           <ul className="list-disc list-inside text-gray-700 mt-2">
-            <li>Crafted features extending the existing product utilizing NodeJS and Typescript</li>
-            <li>Advocated for best practices, tests, and coding standards</li>
-            <li>Engaged in pair programming sessions to enhance collaboration and code efficiency</li>
-            <li>Conducted code reviews to maintain code quality</li>
-            <li>Worked closely with the frontend team for seamless integration</li>
-            <li>Contributed to technical decision-making through writing technical documentation</li>
+            <li>Built features extending the existing product utilizing NodeJS and Typescript</li>
+            <li>Collaboration on pair programming sessions and code reviews of team members</li>
+            <li>Worked closely with the frontend team to ensure seamless integration between frontend and backend</li>
+            <li>Wrote technical documentation such as RFCs, ADRs, etc.</li>
+            <li>Worked on projects such as redesigning APIs to follow RESTFUL standards, creating a default template for new NodeJS services, and designing a solution for asynchronous communication between services</li>
           </ul>
           <p className="text-gray-600 mt-2"><strong>Technologies:</strong> NodeJS, Jest, AWS, and MySQL</p>
         </div>
       </section>
+
+      <section className="mb-8">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-4">Previous Professional Experiences</h2>
+        <p className="text-gray-700">
+          I have 5 years of experience across multiple industries between Brazil and Portugal, including startups, consultancies, and corporates. During this time, I was mostly responsible for developing solutions on various projects.
+        </p>
+        <p className="text-gray-600 mt-2"><strong>Technologies:</strong> Javascript, Typescript, NodeJS, React, Angular, Java, and PHP.</p>
+      </section>
+
 
       <section className="mb-8">
         <h2 className="text-2xl font-semibold text-gray-800 mb-4">Personal Projects</h2>
