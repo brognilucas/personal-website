@@ -71,8 +71,7 @@ function Resume() {
       <section className="mb-8">
         <h2 className="text-2xl font-semibold text-gray-800 mb-4">Previous Professional Experiences</h2>
         <p className="text-gray-700">
-          I have 5 years of experience across multiple industries between Brazil and Portugal, including startups, consultancies, and corporates. During this time, I was mostly responsible for developing solutions on various projects.
-        </p>
+        5 other years of experience across multiple industries between Brazil and Portugal. Such experiences include startups, consultancies, and corporates. During this time, I worked on multiple projects and was mostly responsible for developing solutions.         </p>
         <p className="text-gray-600 mt-2"><strong>Technologies:</strong> Javascript, Typescript, NodeJS, React, Angular, Java, and PHP.</p>
       </section>
 
