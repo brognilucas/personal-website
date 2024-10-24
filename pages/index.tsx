@@ -104,7 +104,7 @@ function Resume() {
         <ul className="list-disc list-inside text-gray-700">
           <li>Portuguese (Native)</li>
           <li>English (Fluent/Proficient)</li>
-          <li>Italian (Elementary)</li>
+          <li>Italian (Intermediate)</li>
         </ul>
       </section>
     </Container>
