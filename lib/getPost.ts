@@ -4,7 +4,7 @@ export async function getAllPosts() {
   const devToUsername = 'lucasbrogni1'; 
   const posts = await fetch(`https://dev.to/api/articles?username=${devToUsername}`).then((res) => res.json());
   return posts
-    .sort((post1, post2) => (post1.created_at > post2.created_at ? -1 : 1));
+    .sort((post1, post2) => (post1.published_at > post2.published_at ? -1 : 1));
 }
 
 

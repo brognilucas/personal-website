@@ -21,7 +21,7 @@ export default function AllPostsBlog({
             </Link>
             <p>{post.description}</p>
             <div className="text-gray-400">
-              <time>{distanceToNow(new Date(post.created_at))}</time>
+              <time>{distanceToNow(new Date(post.published_at))}</time>
             </div>
           </article>
         ))
