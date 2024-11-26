@@ -29,7 +29,7 @@ export default function PostPage({
             <header>
               <h1 className="text-4xl font-bold">{post.title}</h1>
               <time className="flex mt-2 text-gray-400">
-                {distanceToNow(new Date(post.created_at))}
+                {distanceToNow(new Date(post.published_at))}
               </time>
             </header>
 
