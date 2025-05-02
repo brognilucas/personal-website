@@ -1,12 +1,22 @@
 import type { InferGetStaticPropsType } from "next";
 import Link from "next/link";
+import useSWR from "swr";
 import Container from "../../components/container";
 import distanceToNow from "../../lib/dateRelative";
 import { getAllPosts } from "../../lib/getPost";
 
+const fetcher = () => getAllPosts();
+
+const REFRESH_TIME = 60000
+
 export default function AllPostsBlog({
-  allPosts,
+  allPosts: initialPosts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { data: allPosts = initialPosts } = useSWR('posts', fetcher, {
+    refreshInterval: REFRESH_TIME,
+    fallbackData: initialPosts,
+  });
+
   return (
     <Container>
       {allPosts.length ? (
@@ -32,8 +42,8 @@ export default function AllPostsBlog({
   );
 }
 
-
 AllPostsBlog.displayName = 'Blog'
+
 export async function getStaticProps() {
   const allPosts = await getAllPosts();
 

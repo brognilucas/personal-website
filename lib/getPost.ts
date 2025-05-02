@@ -1,6 +1,6 @@
 import { DevToArticle } from "../interfaces";
 
-export async function getAllPosts() {
+export async function getAllPosts(): Promise<DevToArticle[]> {
   const devToUsername = 'lucasbrogni1'; 
   const posts = await fetch(`https://dev.to/api/articles?username=${devToUsername}`).then((res) => res.json());
   return posts
