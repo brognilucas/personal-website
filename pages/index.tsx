@@ -1,5 +1,5 @@
 import Container from "../components/container";
-import { FaGithub, FaLinkedin, FaGlobe } from 'react-icons/fa';
+import { Github, Linkedin, Globe } from 'lucide-react';
 
 function Home() {
   return (
@@ -10,13 +10,13 @@ function Home() {
         <p className="text-gray-500 mb-4">lucasbrogni16@gmail.com</p>
         <div className="flex space-x-6 mb-2">
           <a href="https://vykwqnnvfkuxybai.public.blob.vercel-storage.com/Lucas%20Brogni%20-%20Senior%20Software%20Engineer.pdf" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600" title="Personal Website">
-            <FaGlobe size={28} />
+            <Globe size={28} />
           </a>
           <a href="https://github.com/brognilucas" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800" title="GitHub">
-            <FaGithub size={28} />
+            <Github size={28} />
           </a>
           <a href="https://linkedin.com/in/lucas-brogni" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-700" title="LinkedIn">
-            <FaLinkedin size={28} />
+            <Linkedin size={28} />
           </a>
         </div>
       </header>
