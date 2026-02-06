@@ -12,14 +12,14 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="description"
-          content="Blog created utilizing Next.js blog template"
+          content="Lucas Brogni — Senior Software Engineer & Engineering Leader. 10+ years building scalable systems and growing teams."
         />
-        <title>{`Lucas Brogni | ${Component.displayName}`}</title>
+        <title>{`Lucas Brogni | ${Component.displayName || 'Portfolio'}`}</title>
       </Head>
 
       <Header />
 
-      <main className="py-14">
+      <main>
         <Component {...pageProps} />
       </main>
     </>

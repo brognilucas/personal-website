@@ -1,92 +1,299 @@
+import type { InferGetStaticPropsType } from "next";
+import Link from "next/link";
+import useSWR from "swr";
 import Container from "../components/container";
-import { Github, Linkedin, Globe } from 'lucide-react';
+import { Github, Linkedin, FileText, ArrowRight, ArrowUpRight } from "lucide-react";
+import distanceToNow from "../lib/dateRelative";
+import { getAllPosts } from "../lib/getPost";
 
-function Home() {
+const fetcher = () => getAllPosts();
+const REFRESH_TIME = 60000;
+
+const values = [
+  {
+    title: "Continuous Learning",
+    description:
+      "From Brazil to Portugal, Denmark, and Germany — I grow by stepping outside my comfort zone. Every new context is a chance to evolve.",
+  },
+  {
+    title: "Technical Excellence",
+    description:
+      "Clean code, thoughtful architecture, and rigorous testing aren't optional — they're the foundation of software that lasts.",
+  },
+  {
+    title: "Collaborative Leadership",
+    description:
+      "I believe the best engineering happens when people feel heard, supported, and challenged. I lead by growing others.",
+  },
+  {
+    title: "Impact Over Output",
+    description:
+      "Lines of code don't matter. What matters is solving real problems, shipping reliable systems, and making users' lives better.",
+  },
+];
+
+const abilities = [
+  {
+    title: "Backend & Cloud Architecture",
+    description:
+      "Designing and building scalable microservices, serverless functions, and event-driven systems on AWS.",
+    tags: ["TypeScript", "Node.js", "AWS", "Kafka", "DynamoDB"],
+  },
+  {
+    title: "Technical Leadership",
+    description:
+      "Leading engineering teams through complex migrations, system redesigns, and scaling challenges.",
+    tags: ["Team Building", "Mentoring", "Architecture Reviews"],
+  },
+  {
+    title: "DevOps & Automation",
+    description:
+      "Building robust CI/CD pipelines, infrastructure as code, monitoring, and automated testing strategies.",
+    tags: ["Terraform", "CI/CD", "Docker", "Observability"],
+  },
+  {
+    title: "Software Craftsmanship",
+    description:
+      "Championing clean code, TDD, code reviews, and engineering best practices across teams.",
+    tags: ["Jest", "Cypress", "Clean Code", "Agile"],
+  },
+];
+
+function Home({
+  latestPosts: initialPosts,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { data: allPosts = [] } = useSWR("posts", fetcher, {
+    refreshInterval: REFRESH_TIME,
+    fallbackData: [],
+  });
+
+  const posts = allPosts.length > 0 ? allPosts.slice(0, 4) : initialPosts;
+
   return (
-    <Container>
-      <header className="flex flex-col items-center justify-center py-12 bg-gradient-to-b from-white to-gray-50 rounded-lg shadow-md mb-10">
-        <h1 className="text-5xl font-extrabold text-gray-900 mb-2">Lucas Brogni</h1>
-        <p className="text-2xl text-gray-700 font-medium mb-2">Senior Software Engineer & Engineering Leader</p>
-        <p className="text-gray-500 mb-4">lucasbrogni16@gmail.com</p>
-        <div className="flex space-x-6 mb-2">
-          <a href="https://vykwqnnvfkuxybai.public.blob.vercel-storage.com/Lucas%20Brogni%20-%20Senior%20Software%20Engineer.pdf" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-600" title="Personal Website">
-            <Globe size={28} />
-          </a>
-          <a href="https://github.com/brognilucas" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-800" title="GitHub">
-            <Github size={28} />
-          </a>
-          <a href="https://linkedin.com/in/lucas-brogni" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-blue-700" title="LinkedIn">
-            <Linkedin size={28} />
-          </a>
-        </div>
-      </header>
-
-      <main className="max-w-3xl mx-auto">
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-3">About Me</h2>
-          <p className="text-lg text-gray-700 leading-relaxed">
-            I am a passionate Senior Software Engineer and Engineering Leader with over 10 years of experience building scalable, reliable, and high-performance systems. My journey has taken me across Brazil, Portugal, Denmark, and Germany, where I have contributed to and led teams in startups, consultancies, and global tech companies. I thrive in collaborative, multicultural environments and enjoy mentoring engineers, driving technical excellence, and delivering impactful solutions.
-          </p>
-        </section>
-
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-3">What I Do</h2>
-          <ul className="list-disc list-inside text-gray-700 text-lg space-y-2">
-            <li>Design and implement backend and cloud architectures (microservices, serverless, event-driven)</li>
-            <li>Lead technical initiatives, migrations, and testing strategies</li>
-            <li>Mentor and grow engineering teams</li>
-            <li>Drive DevOps culture: CI/CD, infrastructure as code, monitoring, and automation</li>
-            <li>Advocate for clean code, best practices, and continuous improvement</li>
-          </ul>
-        </section>
-
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-3">Technologies</h2>
-          <div className="flex flex-wrap gap-3 text-gray-700 text-lg">
-            <span className="bg-gray-100 rounded px-3 py-1">TypeScript</span>
-            <span className="bg-gray-100 rounded px-3 py-1">Node.js</span>
-            <span className="bg-gray-100 rounded px-3 py-1">React</span>
-            <span className="bg-gray-100 rounded px-3 py-1">Java</span>
-            <span className="bg-gray-100 rounded px-3 py-1">Kotlin</span>
-            <span className="bg-gray-100 rounded px-3 py-1">AWS</span>
-            <span className="bg-gray-100 rounded px-3 py-1">Terraform</span>
-            <span className="bg-gray-100 rounded px-3 py-1">PostgreSQL</span>
-            <span className="bg-gray-100 rounded px-3 py-1">MySQL</span>
-            <span className="bg-gray-100 rounded px-3 py-1">MongoDB</span>
-            <span className="bg-gray-100 rounded px-3 py-1">DynamoDB</span>
-            <span className="bg-gray-100 rounded px-3 py-1">Kafka</span>
-            <span className="bg-gray-100 rounded px-3 py-1">RabbitMQ</span>
-            <span className="bg-gray-100 rounded px-3 py-1">Jest</span>
-            <span className="bg-gray-100 rounded px-3 py-1">Cypress</span>
-            <span className="bg-gray-100 rounded px-3 py-1">CI/CD</span>
-            <span className="bg-gray-100 rounded px-3 py-1">Agile</span>
+    <>
+      {/* Hero */}
+      <section className="pt-32 pb-20 md:pt-40 md:pb-28">
+        <Container wide>
+          <div className="max-w-3xl">
+            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight tracking-tight mb-6">
+              Engineering leadership through building.{" "}
+              <span className="text-gray-400">Systems, teams, culture.</span>
+            </h1>
+            <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8 max-w-2xl">
+              Senior Software Engineer & Engineering Leader with 10+ years building scalable
+              systems and growing high-performing teams across 4 countries.
+            </p>
+            <div className="flex items-center space-x-5">
+              <a
+                href="https://github.com/brognilucas"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-gray-900 transition-colors"
+                title="GitHub"
+              >
+                <Github size={22} />
+              </a>
+              <a
+                href="https://linkedin.com/in/lucas-brogni"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-blue-600 transition-colors"
+                title="LinkedIn"
+              >
+                <Linkedin size={22} />
+              </a>
+              <a
+                href="https://vykwqnnvfkuxybai.public.blob.vercel-storage.com/Lucas%20Brogni%20-%20Senior%20Software%20Engineer.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-gray-900 transition-colors"
+                title="Download CV"
+              >
+                <FileText size={22} />
+              </a>
+            </div>
           </div>
-        </section>
+        </Container>
+      </section>
 
-        <section className="mb-10">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-3">Education & Certifications</h2>
-          <ul className="list-disc list-inside text-gray-700 text-lg space-y-2">
-            <li>Postgraduate Degree in Tech Management, FIAP (2025 – Present)</li>
-            <li>MBA in Software Architecture, IGTI (2020 – 2021)</li>
-            <li>Bachelor of Technology in Internet Systems, SENAI (2016 – 2019)</li>
-            <li>SFPC - Scrum Foundation Professional Certification</li>
-            <li>JSNSD - OpenJS Node.JS Services Developer</li>
-          </ul>
-        </section>
+      {/* Values */}
+      <section id="values" className="py-20 bg-gray-50">
+        <Container wide>
+          <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3">
+            What drives me
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
+            Values
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {values.map((value) => (
+              <div key={value.title} className="group">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  {value.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {value.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
 
-        <section>
-          <h2 className="text-2xl font-semibold text-gray-800 mb-3">Languages</h2>
-          <ul className="list-disc list-inside text-gray-700 text-lg space-y-2">
-            <li>Portuguese (Native)</li>
-            <li>English (Fluent)</li>
-            <li>Italian (Intermediate)</li>
-          </ul>
-        </section>
-      </main>
-    </Container>
+      {/* Core Abilities */}
+      <section id="abilities" className="py-20">
+        <Container wide>
+          <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3">
+            What I bring
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
+            Core Abilities
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {abilities.map((ability) => (
+              <div
+                key={ability.title}
+                className="p-6 rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300"
+              >
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  {ability.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed mb-4">
+                  {ability.description}
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {ability.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-xs font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Latest Writing */}
+      <section id="writing" className="py-20 bg-gray-50">
+        <Container wide>
+          <div className="flex items-end justify-between mb-12">
+            <div>
+              <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3">
+                Latest thoughts
+              </p>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                Writing
+              </h2>
+            </div>
+            <Link
+              href="/posts"
+              className="hidden md:flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
+            >
+              View all posts
+              <ArrowRight size={16} className="ml-1" />
+            </Link>
+          </div>
+
+          {posts.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {posts.map((post) => (
+                <Link
+                  key={post.id}
+                  href={`/posts/${post.id}`}
+                  className="group block p-6 bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-3">
+                    <time className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                      {distanceToNow(new Date(post.published_at))}
+                    </time>
+                    <ArrowUpRight
+                      size={16}
+                      className="text-gray-300 group-hover:text-blue-600 transition-colors"
+                    />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors leading-snug">
+                    {post.title}
+                  </h3>
+                  <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
+                    {post.description}
+                  </p>
+                  {post.reading_time_minutes && (
+                    <p className="text-xs text-gray-400 mt-3">
+                      {post.reading_time_minutes} min read
+                    </p>
+                  )}
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500">No posts yet — check back soon.</p>
+          )}
+
+          <Link
+            href="/posts"
+            className="md:hidden flex items-center justify-center text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors mt-8"
+          >
+            View all posts
+            <ArrowRight size={16} className="ml-1" />
+          </Link>
+        </Container>
+      </section>
+
+      {/* Footer */}
+      <footer className="py-16 border-t border-gray-100">
+        <Container wide>
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="text-center md:text-left">
+              <p className="text-lg font-bold text-gray-900 mb-1">Lucas Brogni</p>
+              <p className="text-sm text-gray-500">
+                Senior Software Engineer & Engineering Leader
+              </p>
+            </div>
+            <div className="flex items-center space-x-5">
+              <a
+                href="https://github.com/brognilucas"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-gray-900 transition-colors"
+              >
+                <Github size={20} />
+              </a>
+              <a
+                href="https://linkedin.com/in/lucas-brogni"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-blue-600 transition-colors"
+              >
+                <Linkedin size={20} />
+              </a>
+              <a
+                href="mailto:lucasbrogni16@gmail.com"
+                className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
+              >
+                lucasbrogni16@gmail.com
+              </a>
+            </div>
+          </div>
+        </Container>
+      </footer>
+    </>
   );
 }
 
-Home.displayName = 'Home';
+Home.displayName = "Home";
 
 export default Home;
+
+export async function getStaticProps() {
+  const allPosts = await getAllPosts();
+  const latestPosts = allPosts.slice(0, 4);
+
+  return {
+    props: { latestPosts },
+    revalidate: 60,
+  };
+}
