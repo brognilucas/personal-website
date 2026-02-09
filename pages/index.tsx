@@ -13,7 +13,7 @@ const values = [
   {
     title: "Continuous Learning",
     description:
-      "From Brazil to Portugal, Denmark, and Germany — I grow by stepping outside my comfort zone. Every new context is a chance to evolve.",
+      "I grow by stepping outside my comfort zone — whether it's a new tech stack, a different domain, or a fresh cultural context. Every challenge is a chance to evolve.",
   },
   {
     title: "Technical Excellence",
@@ -80,8 +80,8 @@ function Home({
               <span className="text-gray-400">Systems, teams, culture.</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8 max-w-2xl">
-              Senior Software Engineer & Engineering Leader with 10+ years building scalable
-              systems and growing high-performing teams across 4 countries.
+              Senior Software Engineer with 10+ years building scalable
+              systems and high-performing teams across multiple countries.
             </p>
             <div className="flex items-center space-x-5">
               <a
@@ -250,7 +250,7 @@ function Home({
             <div className="text-center md:text-left">
               <p className="text-lg font-bold text-gray-900 mb-1">Lucas Brogni</p>
               <p className="text-sm text-gray-500">
-                Senior Software Engineer & Engineering Leader
+                Senior Software Engineer
               </p>
             </div>
             <div className="flex items-center space-x-5">

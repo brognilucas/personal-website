@@ -12,7 +12,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
           name="description"
-          content="Lucas Brogni — Senior Software Engineer & Engineering Leader. 10+ years building scalable systems and growing teams."
+          content="Lucas Brogni — Senior Software Engineer. 10+ years building scalable systems and growing teams."
         />
         <title>{`Lucas Brogni | ${Component.displayName || 'Portfolio'}`}</title>
       </Head>
