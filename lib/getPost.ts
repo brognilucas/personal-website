@@ -4,6 +4,7 @@ export async function getAllPosts(): Promise<DevToArticle[]> {
   const devToUsername = 'lucasbrogni1'; 
   const posts = await fetch(`https://dev.to/api/articles?username=${devToUsername}`).then((res) => res.json());
   return posts
+    .filter((post) => !post.title.includes('[Boost]'))
     .sort((post1, post2) => (post1.published_at > post2.published_at ? -1 : 1));
 }
 
