@@ -76,12 +76,11 @@ function Home({
         <Container wide>
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-6xl font-bold text-gray-900 leading-tight tracking-tight mb-6">
-              Engineering leadership through building.{" "}
-              <span className="text-gray-400">Systems, teams, culture.</span>
+              Building systems from first principles.{" "}
+              <span className="text-gray-400">Scalability. Simplicity. Long-term thinking.</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-600 leading-relaxed mb-8 max-w-2xl">
-              Senior Software Engineer with 10+ years building scalable
-              systems and high-performing teams across multiple countries.
+              Senior Software Engineer with 10+ years designing and building scalable systems across products, domains, and geographies.
             </p>
             <div className="flex items-center space-x-5">
               <a
