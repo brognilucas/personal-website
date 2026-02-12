@@ -102,7 +102,7 @@ function Home({
                 <Linkedin size={22} />
               </a>
               <a
-                href="https://vykwqnnvfkuxybai.public.blob.vercel-storage.com/Lucas%20Brogni%20-%20Senior%20Software%20Engineer.pdf"
+                href="https://vykwqnnvfkuxybai.public.blob.vercel-storage.com/Lucas_Brogni_CV_Technical.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-gray-900 transition-colors"
