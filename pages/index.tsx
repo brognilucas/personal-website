@@ -1,13 +1,6 @@
-import type { InferGetStaticPropsType } from "next";
-import Link from "next/link";
-import useSWR from "swr";
+import type { LucideIcon } from "lucide-react";
+import { ArrowUpRight, BookOpen, FileText, Github, Linkedin, Rss, Trophy } from "lucide-react";
 import Container from "../components/container";
-import { Github, Linkedin, FileText, ArrowRight, ArrowUpRight } from "lucide-react";
-import distanceToNow from "../lib/dateRelative";
-import { getAllPosts } from "../lib/getPost";
-
-const fetcher = () => getAllPosts();
-const REFRESH_TIME = 60000;
 
 const values = [
   {
@@ -59,19 +52,48 @@ const abilities = [
   },
 ];
 
-function Home({
-  latestPosts: initialPosts,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { data: allPosts = [] } = useSWR("posts", fetcher, {
-    refreshInterval: REFRESH_TIME,
-    fallbackData: [],
-  });
+function ProjectCard({
+  title,
+  href,
+  description,
+  cta,
+  icon: Icon,
+}: {
+  title: string;
+  href: string;
+  description: string;
+  cta: string;
+  icon: LucideIcon;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block p-6 bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300"
+    >
+      <div className="flex items-start justify-between gap-4 mb-3">
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gray-50 text-gray-700 group-hover:bg-gray-100 transition-colors">
+          <Icon size={22} strokeWidth={1.75} aria-hidden />
+        </span>
+        <ArrowUpRight
+          size={18}
+          className="text-gray-300 group-hover:text-blue-600 transition-colors shrink-0 mt-1"
+          aria-hidden
+        />
+      </div>
+      <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors leading-snug">
+        {title}
+      </h3>
+      <p className="text-sm text-gray-600 leading-relaxed mb-4">{description}</p>
+      <span className="text-sm font-medium text-blue-600 group-hover:text-blue-800">{cta}</span>
+    </a>
+  );
+}
 
-  const posts = allPosts.length > 0 ? allPosts.slice(0, 4) : initialPosts;
-
+function Home() {
   return (
     <>
-      {/* Hero */}
       <section className="pt-32 pb-20 md:pt-40 md:pb-28">
         <Container wide>
           <div className="max-w-3xl">
@@ -115,57 +137,38 @@ function Home({
         </Container>
       </section>
 
-      {/* Values */}
       <section id="values" className="py-20 bg-gray-50">
         <Container wide>
-          <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3">
-            What drives me
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
-            Values
-          </h2>
+          <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3">What drives me</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12">Values</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {values.map((value) => (
               <div key={value.title} className="group">
                 <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
                   {value.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
-                  {value.description}
-                </p>
+                <p className="text-gray-600 leading-relaxed">{value.description}</p>
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      {/* Core Abilities */}
       <section id="abilities" className="py-20">
         <Container wide>
-          <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3">
-            What I bring
-          </p>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12">
-            Core Abilities
-          </h2>
+          <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3">What I bring</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12">Core Abilities</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {abilities.map((ability) => (
               <div
                 key={ability.title}
                 className="p-6 rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300"
               >
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {ability.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  {ability.description}
-                </p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">{ability.title}</h3>
+                <p className="text-gray-600 leading-relaxed mb-4">{ability.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {ability.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full"
-                    >
+                    <span key={tag} className="text-xs font-medium text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
                       {tag}
                     </span>
                   ))}
@@ -176,81 +179,48 @@ function Home({
         </Container>
       </section>
 
-      {/* Latest Writing */}
       <section id="writing" className="py-20 bg-gray-50">
         <Container wide>
-          <div className="flex items-end justify-between mb-12">
-            <div>
-              <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3">
-                Latest thoughts
-              </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                Writing
-              </h2>
-            </div>
-            <Link
-              href="/posts"
-              className="hidden md:flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors"
-            >
-              View all posts
-              <ArrowRight size={16} className="ml-1" />
-            </Link>
+          <div className="mb-12">
+            <p className="text-sm font-semibold text-blue-600 uppercase tracking-widest mb-3">Latest work</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Writing &amp; projects</h2>
+            <p className="text-gray-600 leading-relaxed max-w-2xl">
+              I write about production serverless on AWS and ship community projects—ebook, independent blog, and a free NFL Draft platform.
+            </p>
           </div>
 
-          {posts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {posts.map((post) => (
-                <Link
-                  key={post.id}
-                  href={`/posts/${post.id}`}
-                  className="group block p-6 bg-white rounded-2xl border border-gray-100 hover:border-gray-200 hover:shadow-lg transition-all duration-300"
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <time className="text-xs font-medium text-gray-400 uppercase tracking-wide">
-                      {distanceToNow(new Date(post.published_at))}
-                    </time>
-                    <ArrowUpRight
-                      size={16}
-                      className="text-gray-300 group-hover:text-blue-600 transition-colors"
-                    />
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors leading-snug">
-                    {post.title}
-                  </h3>
-                  <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
-                    {post.description}
-                  </p>
-                  {post.reading_time_minutes && (
-                    <p className="text-xs text-gray-400 mt-3">
-                      {post.reading_time_minutes} min read
-                    </p>
-                  )}
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-500">No posts yet — check back soon.</p>
-          )}
-
-          <Link
-            href="/posts"
-            className="md:hidden flex items-center justify-center text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors mt-8"
-          >
-            View all posts
-            <ArrowRight size={16} className="ml-1" />
-          </Link>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <ProjectCard
+              icon={BookOpen}
+              href="https://lambdainproduction.com"
+              title="From Zero to Production with AWS Lambda"
+              description="Practical serverless ebook: Lambda execution model, API Gateway, SQS, EventBridge, DynamoDB, S3, observability, security, testing, CI/CD, and cost-aware performance."
+              cta="lambdainproduction.com →"
+            />
+            <ProjectCard
+              icon={Rss}
+              href="https://practicalserverless.blog"
+              title="Practical Serverless"
+              description="Ongoing articles on real-world serverless: event-driven design, failure handling and DLQs, and lessons from production—not demos."
+              cta="practicalserverless.blog →"
+            />
+            <ProjectCard
+              icon={Trophy}
+              href="https://draftpulse.co"
+              title="DraftPulse"
+              description="Free community NFL Draft board: rank prospects, share analysis, and learn from collective takes—not a single hot take machine."
+              cta="draftpulse.co →"
+            />
+          </div>
         </Container>
       </section>
 
-      {/* Footer */}
       <footer className="py-16 border-t border-gray-100">
         <Container wide>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
               <p className="text-lg font-bold text-gray-900 mb-1">Lucas Brogni</p>
-              <p className="text-sm text-gray-500">
-                Senior Software Engineer
-              </p>
+              <p className="text-sm text-gray-500">Senior Software Engineer</p>
             </div>
             <div className="flex items-center space-x-5">
               <a
@@ -286,13 +256,3 @@ function Home({
 Home.displayName = "Home";
 
 export default Home;
-
-export async function getStaticProps() {
-  const allPosts = await getAllPosts();
-  const latestPosts = allPosts.slice(0, 4);
-
-  return {
-    props: { latestPosts },
-    revalidate: 60,
-  };
-}

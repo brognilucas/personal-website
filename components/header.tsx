@@ -12,7 +12,6 @@ export default function Header() {
             LB
           </Link>
 
-          {/* Desktop nav */}
           <div className="hidden md:flex items-center space-x-8">
             <Link href="/#values" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
               Values
@@ -22,9 +21,6 @@ export default function Header() {
             </Link>
             <Link href="/#writing" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
               Writing
-            </Link>
-            <Link href="/posts" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-              All Posts
             </Link>
             <a
               href="https://linkedin.com/in/lucas-brogni"
@@ -36,7 +32,6 @@ export default function Header() {
             </a>
           </div>
 
-          {/* Mobile menu toggle */}
           <button
             className="md:hidden p-2 text-gray-600 hover:text-gray-900"
             onClick={() => setMenuOpen(!menuOpen)}
@@ -52,7 +47,6 @@ export default function Header() {
           </button>
         </nav>
 
-        {/* Mobile menu */}
         {menuOpen && (
           <div className="md:hidden pb-4 border-t border-gray-100 pt-4 space-y-3">
             <Link href="/#values" className="block text-sm font-medium text-gray-600 hover:text-gray-900" onClick={() => setMenuOpen(false)}>
@@ -63,9 +57,6 @@ export default function Header() {
             </Link>
             <Link href="/#writing" className="block text-sm font-medium text-gray-600 hover:text-gray-900" onClick={() => setMenuOpen(false)}>
               Writing
-            </Link>
-            <Link href="/posts" className="block text-sm font-medium text-gray-600 hover:text-gray-900" onClick={() => setMenuOpen(false)}>
-              All Posts
             </Link>
             <a
               href="https://linkedin.com/in/lucas-brogni"

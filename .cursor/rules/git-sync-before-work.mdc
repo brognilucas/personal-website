@@ -1,0 +1,24 @@
+---
+description: Sync with remote before substantive edits; avoid working on stale main
+alwaysApply: true
+---
+
+# Git: check pull before coding
+
+Before starting non-trivial work (new features, refactors, multi-file changes), verify the local branch is not behind the remote.
+
+## What to do
+
+1. **If the task will change the codebase**, run (or equivalent) early in the session:
+   - `git fetch` and compare: `git status` / `git log HEAD..@{upstream} --oneline` (when tracking a branch), or
+   - `git pull --ff-only` when the user expects the agent to sync, after checking for a clean tree or stashing if needed.
+
+2. **If `git status` shows “behind” the upstream** (e.g. `main...origin/main [behind N]`), **pull or rebase** before making edits, unless the user explicitly wants an isolated branch without syncing.
+
+3. **If there are local commits not pushed**, do not blindly pull; use merge/rebase as appropriate and preserve the user’s intent (ask if ambiguous).
+
+4. **Document-only or single-line fixes**: still prefer a quick `git fetch` + status check when the repo is known to be collaborative.
+
+## Rationale
+
+Reduces duplicate work, merge pain, and overwriting changes that already landed on `origin`.
