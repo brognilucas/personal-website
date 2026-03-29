@@ -1,6 +1,8 @@
 import type { LucideIcon } from "lucide-react";
 import { ArrowUpRight, BookOpen, FileText, Github, Linkedin, Rss, Trophy } from "lucide-react";
+import Head from "next/head";
 import Container from "../components/container";
+import { absoluteUrl } from "../lib/site";
 
 const values = [
   {
@@ -97,9 +99,82 @@ function ProjectCard({
   );
 }
 
+const pageTitle =
+  "Lucas Brogni | Software Engineer — AWS Lambda, Serverless & Engineering Blog";
+const pageDescription =
+  "Lucas Brogni is a software engineer and technical writer. AWS Lambda and serverless in production, backend architecture, and the Practical Serverless blog plus the From Zero to Production with AWS Lambda ebook.";
+
 function Home() {
+  const canonicalUrl = absoluteUrl("/");
+
+  const personJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Lucas Brogni",
+    jobTitle: "Software Engineer",
+    url: canonicalUrl,
+    sameAs: [
+      "https://github.com/brognilucas",
+      "https://linkedin.com/in/lucas-brogni",
+      "https://lambdainproduction.com",
+      "https://practicalserverless.blog",
+    ],
+    knowsAbout: [
+      "Software engineering",
+      "AWS Lambda",
+      "Serverless computing",
+      "Amazon Web Services",
+      "TypeScript",
+      "Backend architecture",
+      "Technical writing",
+    ],
+    description: pageDescription,
+  };
+
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Lucas Brogni",
+    url: canonicalUrl,
+    description: pageDescription,
+    author: {
+      "@type": "Person",
+      name: "Lucas Brogni",
+      url: canonicalUrl,
+    },
+  };
+
   return (
     <>
+      <Head>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDescription} />
+        <link rel="canonical" href={canonicalUrl} />
+        <meta name="author" content="Lucas Brogni" />
+        <meta
+          name="keywords"
+          content="Lucas Brogni, software engineer, AWS Lambda, serverless blog, practical serverless, backend engineer, TypeScript, AWS, technical blog, engineering blog"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Lucas Brogni" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:locale" content="en_US" />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([personJsonLd, websiteJsonLd]),
+          }}
+        />
+      </Head>
+
       <section className="relative overflow-hidden pt-28 pb-20 md:pt-36 md:pb-28">
         <div
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-20%,rgb(204_251_241/0.45),transparent)]"
@@ -124,7 +199,26 @@ function Home() {
               <span className="text-stone-500 font-medium italic">Scalability. Simplicity. Long-term thinking.</span>
             </h1>
             <p className="text-lg md:text-xl text-stone-600 leading-relaxed mb-10 max-w-2xl">
-              Software Engineer with 10+ years designing and building scalable systems across products, domains, and geographies.
+              Software engineer with 10+ years designing and building scalable systems across products, domains, and geographies.
+              I write about AWS Lambda, serverless architecture, and production backend engineering—see{" "}
+              <a
+                href="https://practicalserverless.blog"
+                className="font-medium text-teal-800 underline decoration-teal-200/80 underline-offset-4 hover:text-teal-900 hover:decoration-teal-400/90"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Practical Serverless
+              </a>{" "}
+              and my serverless ebook on{" "}
+              <a
+                href="https://lambdainproduction.com"
+                className="font-medium text-teal-800 underline decoration-teal-200/80 underline-offset-4 hover:text-teal-900 hover:decoration-teal-400/90"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Lambda in production
+              </a>
+              .
             </p>
             <div className="flex flex-wrap items-center gap-3">
               <div className="inline-flex items-center gap-1 rounded-full border border-stone-200/90 bg-white/80 px-2 py-2 shadow-sm backdrop-blur-sm">

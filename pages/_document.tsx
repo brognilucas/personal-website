@@ -5,8 +5,10 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <meta charSet="utf-8" />
-        <meta name="robots" content="follow, index" />
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="referrer" content="strict-origin-when-cross-origin" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
+        <meta name="theme-color" content="#fafaf9" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
