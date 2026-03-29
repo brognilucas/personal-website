@@ -6,6 +6,11 @@ html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background-color: rgb(204 251 241);
+  color: rgb(19 78 74);
+}
+
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
