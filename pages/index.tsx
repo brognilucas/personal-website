@@ -241,7 +241,7 @@ function Home() {
                   <Linkedin size={22} strokeWidth={1.75} />
                 </a>
                 <a
-                  href="https://vykwqnnvfkuxybai.public.blob.vercel-storage.com/Lucas_Brogni_CV_Technical.pdf"
+                  href="https://vykwqnnvfkuxybai.public.blob.vercel-storage.com/Lucas%20Brogni%20-%20Software%20Engineer.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="rounded-full p-2.5 text-stone-500 transition-colors hover:bg-stone-100 hover:text-teal-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
