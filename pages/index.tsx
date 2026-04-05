@@ -389,6 +389,27 @@ function Home() {
               </a>
             </div>
           </div>
+          <p className="mt-8 pt-8 border-t border-stone-200/70 text-center text-sm text-stone-500 md:text-right">
+            <a
+              href="https://practicalserverless.blog"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-teal-800 underline decoration-teal-200/80 underline-offset-4 hover:text-teal-900"
+            >
+              practicalserverless.blog
+            </a>
+            <span className="mx-2 text-stone-400" aria-hidden>
+              ·
+            </span>
+            <a
+              href="https://github.com/brognilucas"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-teal-800 underline decoration-teal-200/80 underline-offset-4 hover:text-teal-900"
+            >
+              GitHub @brognilucas
+            </a>
+          </p>
         </Container>
       </footer>
     </>
