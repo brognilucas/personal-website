@@ -1,43 +1,65 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import { social } from "../lib/content";
+
+const navItems = [
+  { label: "HOME", href: "/", external: false },
+  { label: "BLOG", href: social.blog, external: true },
+  { label: "ABOUT", href: "/about", external: false },
+] as const;
+
+function navLinkClass(isActive: boolean) {
+  return `text-xs font-medium tracking-widest transition-colors ${
+    isActive ? "text-teal-700" : "text-neutral-500 hover:text-neutral-900"
+  }`;
+}
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
+
+  const isActive = (href: string) => {
+    if (href === "/") return router.pathname === "/";
+    return router.pathname === href;
+  };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-stone-200/70 bg-stone-50/75 backdrop-blur-lg supports-[backdrop-filter]:bg-stone-50/60">
-      <div className="container max-w-6xl m-auto px-6 sm:px-8">
-        <nav className="flex items-center justify-between h-[4.25rem]">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-neutral-200 bg-white">
+      <div className="container relative m-auto max-w-4xl px-6 sm:px-8">
+        <nav className="flex h-16 items-center justify-between">
           <Link
             href="/"
-            className="font-display text-xl font-semibold tracking-tight text-stone-900 transition-colors hover:text-teal-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 rounded-sm"
+            className="text-lg font-semibold tracking-tight text-neutral-900 transition-colors hover:text-teal-700"
           >
-            LB
+            <span className="flex flex-col leading-none">
+              <span>L</span>
+              <span>B</span>
+            </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-1">
-            <Link
-              href="/#values"
-              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-200/60 hover:text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
-            >
-              Values
-            </Link>
-            <Link
-              href="/#abilities"
-              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-200/60 hover:text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
-            >
-              Abilities
-            </Link>
-            <Link
-              href="/#writing"
-              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-200/60 hover:text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
-            >
-              Projects
-            </Link>
+          <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
+            {navItems.map((item) =>
+              item.external ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={navLinkClass(false)}
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link key={item.label} href={item.href} className={navLinkClass(isActive(item.href))}>
+                  {item.label}
+                </Link>
+              ),
+            )}
           </div>
 
           <button
-            className="md:hidden rounded-lg p-2 text-stone-600 transition-colors hover:bg-stone-200/60 hover:text-stone-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600"
+            className="rounded-lg p-2 text-neutral-600 transition-colors hover:text-neutral-900 md:hidden"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -52,28 +74,32 @@ export default function Header() {
         </nav>
 
         {menuOpen && (
-          <div className="md:hidden space-y-1 border-t border-stone-200/70 pb-5 pt-4">
-            <Link
-              href="/#values"
-              className="block rounded-lg px-2 py-2 text-sm font-medium text-stone-600 hover:bg-stone-200/50 hover:text-stone-900"
-              onClick={() => setMenuOpen(false)}
-            >
-              Values
-            </Link>
-            <Link
-              href="/#abilities"
-              className="block rounded-lg px-2 py-2 text-sm font-medium text-stone-600 hover:bg-stone-200/50 hover:text-stone-900"
-              onClick={() => setMenuOpen(false)}
-            >
-              Abilities
-            </Link>
-            <Link
-              href="/#writing"
-              className="block rounded-lg px-2 py-2 text-sm font-medium text-stone-600 hover:bg-stone-200/50 hover:text-stone-900"
-              onClick={() => setMenuOpen(false)}
-            >
-              Projects
-            </Link>
+          <div className="space-y-1 border-t border-neutral-200 pb-5 pt-4 md:hidden">
+            {navItems.map((item) =>
+              item.external ? (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block py-2 text-xs font-medium tracking-widest text-neutral-500"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={`block py-2 text-xs font-medium tracking-widest ${
+                    isActive(item.href) ? "text-teal-700" : "text-neutral-500"
+                  }`}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ),
+            )}
           </div>
         )}
       </div>

@@ -16,18 +16,6 @@ module.exports = {
           "Roboto",
           "sans-serif",
         ],
-        display: [
-          "Fraunces",
-          "Georgia",
-          "Times New Roman",
-          "serif",
-        ],
-      },
-      boxShadow: {
-        soft:
-          "0 2px 16px -4px rgb(0 0 0 / 0.06), 0 8px 40px -12px rgb(0 0 0 / 0.08)",
-        "soft-lg":
-          "0 4px 24px -6px rgb(0 0 0 / 0.08), 0 16px 48px -16px rgb(0 0 0 / 0.1)",
       },
     },
   },

@@ -11,6 +11,11 @@ html {
   color: rgb(19 78 74);
 }
 
+.divider-dashed {
+  border: none;
+  border-top: 1px dashed rgb(212 212 212);
+}
+
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
