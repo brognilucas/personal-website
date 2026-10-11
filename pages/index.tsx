@@ -1,13 +1,14 @@
+import type { GetStaticProps } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import Container from "../components/container";
 import Footer from "../components/footer";
-import ProjectCard from "../components/project-card";
-import { pageDescription, pageTitle, projects, social } from "../lib/content";
+import { Command, Cursor, ExtLink, IntLink, shortHash, Window } from "../components/terminal/ui";
+import { career, location, openToWork, openToWorkLabel, pageDescription, pageTitle, projects, social } from "../lib/content";
+import { FeedPost, getLatestPosts } from "../lib/feed";
 import { absoluteUrl } from "../lib/site";
 
-function Home() {
+type HomeProps = { posts: FeedPost[] };
+
+function Home({ posts }: HomeProps) {
   const canonicalUrl = absoluteUrl("/");
 
   const personJsonLd = {
@@ -19,7 +20,7 @@ function Home() {
     sameAs: [
       social.github,
       social.linkedin,
-      "https://lambdainproduction.com",
+      social.book,
       social.blog,
     ],
     knowsAbout: [
@@ -78,75 +79,84 @@ function Home() {
         />
       </Head>
 
-      <section className="pt-28 pb-16 md:pt-36 md:pb-20">
-        <Container wide>
-          <div className="grid items-start gap-10 md:grid-cols-2 md:gap-12">
-            <div>
-              <h1 className="mb-8 text-3xl font-bold leading-tight tracking-tight text-neutral-900 md:text-4xl">
-                Hi! I&apos;m Lucas.
-              </h1>
-              <p className="mb-6 text-base leading-relaxed text-neutral-600 md:text-lg">
-                Software engineer with 10+ years building scalable backend systems. I write about AWS Lambda and
-                serverless in production on{" "}
-                <a
-                  href={social.blog}
-                  className="font-medium text-teal-700 underline decoration-teal-200 underline-offset-4 hover:text-teal-800"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Practical Serverless
-                </a>{" "}
-                and published{" "}
-                <a
-                  href="https://lambdainproduction.com"
-                  className="font-medium text-teal-700 underline decoration-teal-200 underline-offset-4 hover:text-teal-800"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  From Zero to Production with AWS Lambda
-                </a>
-                .
+      <div className="px-4 pb-16 pt-24 sm:px-6 md:pt-28">
+        <Window title="lucas@brogni.dev — zsh">
+          <Command cmd="whoami" animate>
+            <h1 className="text-2xl font-bold text-neutral-50 sm:text-3xl">Lucas Brogni</h1>
+            <p className="text-neutral-400">Software engineer · 10+ years · {location}</p>
+            {openToWork && (
+              <p className="mt-2 text-emerald-400">
+                <span aria-hidden>● </span>
+                {openToWorkLabel}
               </p>
-              <Link
-                href="/about"
-                className="text-sm font-medium text-teal-700 transition-colors hover:text-teal-800"
-              >
-                More about me →
-              </Link>
-            </div>
+            )}
+            <p className="mt-3 max-w-2xl">
+              I build backends that hold up in production: TypeScript, AWS Lambda, event-driven systems, and the testing
+              that keeps them honest. I write about it on <ExtLink href={social.blog}>Practical Serverless</ExtLink> and
+              published <ExtLink href={social.book}>From Zero to Production with AWS Lambda</ExtLink>.
+            </p>
+          </Command>
 
-            <div className="flex justify-center md:justify-end">
-              <div className="relative aspect-[3/4] w-56 overflow-hidden rounded-lg md:w-64">
-                <Image
-                  src="/images/portrait.jpg"
-                  alt="Portrait of Lucas Brogni"
-                  fill
-                  sizes="(max-width: 768px) 224px, 256px"
-                  className="object-cover object-[72%_78%]"
-                  priority
-                />
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
+          <Command cmd="cat ./contact">
+            <p><span className="whitespace-pre text-neutral-500">email    </span><a href={`mailto:${social.email}`} className="text-amber-300 hover:underline">{social.email}</a></p>
+            <p><span className="whitespace-pre text-neutral-500">cv       </span><ExtLink href={social.cv}>download.pdf</ExtLink></p>
+            <p><span className="whitespace-pre text-neutral-500">github   </span><ExtLink href={social.github}>brognilucas</ExtLink></p>
+            <p><span className="whitespace-pre text-neutral-500">linkedin </span><ExtLink href={social.linkedin}>lucas-brogni</ExtLink></p>
+          </Command>
 
-      <Container wide>
-        <hr className="divider-dashed" />
-      </Container>
+          <Command cmd="git log --oneline ./career">
+            <ul className="space-y-3">
+              {career.map((job, i) => (
+                <li key={job.company}>
+                  <span className="text-amber-400">{shortHash(job.company)}</span>{" "}
+                  {i === 0 && <span className="text-sky-400">(HEAD → main) </span>}
+                  <span className="text-neutral-100">{job.role} @ {job.company}</span>{" "}
+                  <span className="text-neutral-500">[{job.period}]</span>
+                  <p className="pl-[8ch] text-neutral-400">{job.highlights[0]}</p>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-3 text-neutral-500">
+              # full history: <IntLink href="/about">cat ./about</IntLink> or <ExtLink href={social.cv}>the CV</ExtLink>
+            </p>
+          </Command>
 
-      <section className="py-16 md:py-20">
-        <Container wide>
-          <p className="mb-8 text-[11px] font-medium uppercase tracking-[0.2em] text-neutral-400">
-            Some things I&apos;ve written, said, or made
-          </p>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {projects.map((project) => (
-              <ProjectCard key={project.href} {...project} />
-            ))}
-          </div>
-        </Container>
-      </section>
+          <Command cmd="ls -l ./published">
+            <ul className="space-y-1">
+              {projects.map((project) => (
+                <li key={project.href} className="grid grid-cols-[auto_1fr] gap-x-3 sm:grid-cols-[7rem_auto_1fr]">
+                  <span className="hidden text-neutral-600 sm:inline">drwxr-xr-x</span>
+                  <ExtLink href={project.href}>{project.title.toLowerCase().replace(/\s+/g, "-")}/</ExtLink>
+                  <span className="text-neutral-500"># {project.type.toLowerCase()}</span>
+                </li>
+              ))}
+            </ul>
+          </Command>
+
+          {posts.length > 0 && (
+            <Command cmd={`tail -n ${posts.length} ./writing.log`}>
+              <ul className="space-y-1">
+                {posts.map((post) => (
+                  <li key={post.url}>
+                    <span className="text-neutral-500">{post.publishedAt ? post.publishedAt.slice(0, 10) : "----------"} </span>
+                    <ExtLink href={post.url}>{post.title}</ExtLink>
+                  </li>
+                ))}
+              </ul>
+            </Command>
+          )}
+
+          <Command cmd="./lab --help">
+            <p>Want to try some of what I&apos;ve built?</p>
+            <p>
+              Run <IntLink href="/lab">./lab</IntLink>{" "}
+              <span className="text-neutral-500"># event payload builder, queue failure simulator</span>
+            </p>
+          </Command>
+
+          <Cursor />
+        </Window>
+      </div>
 
       <Footer />
     </>
@@ -154,5 +164,11 @@ function Home() {
 }
 
 Home.displayName = "Home";
+
+export const getStaticProps: GetStaticProps<HomeProps> = async () => ({
+  props: { posts: await getLatestPosts(3) },
+  // Re-fetch the blog feed at most once an hour so new posts show up without a redeploy.
+  revalidate: 3600,
+});
 
 export default Home;

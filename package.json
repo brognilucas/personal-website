@@ -1,13 +1,14 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_ENV=development next dev",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "@sls-testing/core": "^1.0.1",
     "lucide-react": "^0.525.0",
-    "next": "latest",
+    "next": "14.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.5.0"

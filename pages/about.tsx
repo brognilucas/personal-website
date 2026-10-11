@@ -1,14 +1,16 @@
-import { FileText } from "lucide-react";
 import Head from "next/head";
-import Link from "next/link";
-import Container from "../components/container";
 import Footer from "../components/footer";
-import { aboutBio, abilities, social, values } from "../lib/content";
+import { Command, Cursor, ExtLink, shortHash, Window } from "../components/terminal/ui";
+import { aboutBio, abilities, career, social, values } from "../lib/content";
 import { absoluteUrl } from "../lib/site";
 
 const aboutTitle = "About | Lucas Brogni";
 const aboutDescription =
   "About Lucas Brogni — software engineer focused on AWS Lambda, serverless architecture, and backend systems.";
+
+function slug(text: string) {
+  return text.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
 
 function About() {
   const canonicalUrl = absoluteUrl("/about");
@@ -28,67 +30,67 @@ function About() {
         <meta name="twitter:description" content={aboutDescription} />
       </Head>
 
-      <section className="pt-28 pb-12 md:pt-36 md:pb-16">
-        <Container narrow>
-          <h1 className="mb-6 text-3xl font-bold tracking-tight text-neutral-900 md:text-4xl">About</h1>
-          <p className="mb-8 text-base leading-relaxed text-neutral-600 md:text-lg">{aboutBio}</p>
-          <a
-            href={social.cv}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg border border-neutral-200 px-4 py-2.5 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-300 hover:text-teal-700"
-          >
-            <FileText size={16} strokeWidth={1.75} />
-            Download CV
-          </a>
-        </Container>
-      </section>
+      <div className="px-4 pb-16 pt-24 sm:px-6 md:pt-28">
+        <Window title="lucas@brogni.dev — ~/about">
+          <Command cmd="cat README.md" path="~/about" animate>
+            <h1 className="mb-2 text-2xl font-bold text-neutral-50">About</h1>
+            <p className="max-w-2xl">{aboutBio}</p>
+            <p className="mt-3">
+              <span className="text-neutral-500"># the long version → </span>
+              <ExtLink href={social.cv}>download CV (pdf)</ExtLink>
+            </p>
+          </Command>
 
-      <section className="border-t border-neutral-200 py-16 md:py-20">
-        <Container wide>
-          <h2 className="mb-10 text-2xl font-bold tracking-tight text-neutral-900">Values</h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-            {values.map((value) => (
-              <div key={value.title} className="rounded-lg border border-neutral-200 p-6">
-                <h3 className="mb-2 text-lg font-semibold text-neutral-900">{value.title}</h3>
-                <p className="text-sm leading-relaxed text-neutral-600">{value.description}</p>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
+          <Command cmd="git log ./career" path="~/about">
+            <ul className="space-y-6">
+              {career.map((job, i) => (
+                <li key={job.company}>
+                  <p>
+                    <span className="text-amber-400">commit {shortHash(job.company)}</span>
+                    {i === 0 && <span className="text-sky-400"> (HEAD → main)</span>}
+                  </p>
+                  <p className="whitespace-pre-wrap text-neutral-500">Date:   {job.period} · {job.place}</p>
+                  <p className="mt-2 pl-[4ch] text-neutral-100">{job.role} @ {job.company}</p>
+                  <ul className="mt-1 space-y-1 pl-[4ch]">
+                    {job.highlights.map((h) => (
+                      <li key={h} className="text-neutral-400">
+                        <span className="text-neutral-600">- </span>
+                        {h}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="mt-1 pl-[4ch] text-neutral-500">stack: {job.stack.join(", ")}</p>
+                </li>
+              ))}
+            </ul>
+          </Command>
 
-      <section className="border-t border-neutral-200 py-16 md:py-20">
-        <Container wide>
-          <h2 className="mb-10 text-2xl font-bold tracking-tight text-neutral-900">Core abilities</h2>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
-            {abilities.map((ability) => (
-              <div key={ability.title} className="rounded-lg border border-neutral-200 p-6">
-                <h3 className="mb-2 text-lg font-semibold text-neutral-900">{ability.title}</h3>
-                <p className="mb-4 text-sm leading-relaxed text-neutral-600">{ability.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {ability.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-neutral-200 bg-neutral-50 px-3 py-0.5 text-xs font-medium text-neutral-600"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
+          <Command cmd="cat values.md" path="~/about">
+            <ul className="space-y-4">
+              {values.map((value) => (
+                <li key={value.title}>
+                  <p className="text-emerald-400">## {value.title}</p>
+                  <p className="max-w-2xl text-neutral-400">{value.description}</p>
+                </li>
+              ))}
+            </ul>
+          </Command>
 
-      <Container wide>
-        <p className="pb-8 text-center text-sm text-neutral-500">
-          <Link href="/" className="font-medium text-teal-700 hover:text-teal-800">
-            ← Back home
-          </Link>
-        </p>
-      </Container>
+          <Command cmd="ls ./skills" path="~/about">
+            <ul className="space-y-4">
+              {abilities.map((ability) => (
+                <li key={ability.title}>
+                  <p className="text-sky-400">{slug(ability.title)}/</p>
+                  <p className="max-w-2xl text-neutral-400">{ability.description}</p>
+                  <p className="text-neutral-500">{ability.tags.map((t) => `#${slug(t)}`).join("  ")}</p>
+                </li>
+              ))}
+            </ul>
+          </Command>
+
+          <Cursor path="~/about" />
+        </Window>
+      </div>
 
       <Footer />
     </>
