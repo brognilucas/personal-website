@@ -16,6 +16,7 @@ module.exports = {
           "Roboto",
           "sans-serif",
         ],
+        mono: ["JetBrains Mono", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"],
       },
     },
   },

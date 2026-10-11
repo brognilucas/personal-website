@@ -7,13 +7,13 @@ html {
 }
 
 ::selection {
-  background-color: rgb(204 251 241);
-  color: rgb(19 78 74);
+  background-color: rgb(16 185 129 / 0.35);
+  color: rgb(236 253 245);
 }
 
 .divider-dashed {
   border: none;
-  border-top: 1px dashed rgb(212 212 212);
+  border-top: 1px dashed rgb(64 64 64);
 }
 
 .line-clamp-2 {
@@ -21,4 +21,22 @@ html {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* ---------- Terminal ---------- */
+
+@keyframes blink { 50% { opacity: 0; } }
+.cursor-blink { animation: blink 1s steps(1) infinite; }
+
+@keyframes typing { from { max-width: 0; } to { max-width: 100%; } }
+.type-in {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: bottom;
+  animation: typing 1.2s steps(24) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-blink, .type-in { animation: none; }
 }
